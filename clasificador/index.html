@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clasificador de Mascotas | Teachable Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="badge-tag">Inteligencia Artificial</div>
+      <h1>Clasificador de Animales</h1>
+      <p class="subtitle">
+        Modelo entrenado con Google Teachable Machine para identificar 
+        <strong>Perros</strong>, <strong>Gatos</strong>, <strong>Conejos</strong> y <strong>Hámsters</strong>.
+      </p>
+
+      <!-- Estado de carga del modelo -->
+      <div id="model-status" class="status-indicator loading">
+        <span class="status-dot"></span>
+        <span id="status-text">Cargando modelo de Teachable Machine...</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Selector de Modo -->
+      <div class="tabs">
+        <button id="tab-webcam" class="tab-btn active" type="button">
+          <span class="icon">📷</span> Cámara en vivo
+        </button>
+        <button id="tab-upload" class="tab-btn" type="button">
+          <span class="icon">📁</span> Subir foto
+        </button>
+      </div>
+
+      <div class="panel-layout">
+        <!-- Panel de Entrada de Imagen/Video -->
+        <section class="media-section">
+          <!-- Vista de Cámara Web -->
+          <div id="webcam-view" class="view-panel active">
+            <div class="media-container" id="webcam-container">
+              <div class="media-placeholder" id="webcam-placeholder">
+                <span class="placeholder-icon">📹</span>
+                <p>Presiona el botón para encender la cámara</p>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="btn-toggle-webcam" class="btn btn-primary" disabled>
+                <span id="webcam-btn-icon">▶</span>
+                <span id="webcam-btn-text">Iniciar cámara</span>
+              </button>
+            </div>
+            <p class="helper-text">
+              <small>Nota: La cámara requiere permisos del navegador (preferiblemente en localhost o HTTPS).</small>
+            </p>
+          </div>
+
+          <!-- Vista de Subida de Archivo -->
+          <div id="upload-view" class="view-panel">
+            <div class="dropzone" id="dropzone">
+              <input type="file" id="file-input" accept="image/*" hidden>
+              <div class="dropzone-content" id="dropzone-content">
+                <span class="placeholder-icon">📥</span>
+                <p class="drop-title">Arrastra una imagen aquí</p>
+                <p class="drop-sub">o haz clic para explorar tus archivos</p>
+              </div>
+              <img id="image-preview" class="image-preview hidden" alt="Vista previa">
+            </div>
+            <div class="controls">
+              <button id="btn-select-file" class="btn btn-secondary" type="button">
+                Examinar archivo
+              </button>
+              <button id="btn-clear-image" class="btn btn-text hidden" type="button">
+                Quitar foto
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel de Predicciones / Resultados -->
+        <section class="results-section">
+          <div class="card result-card">
+            <h2>Resultados</h2>
+
+            <!-- Tarjeta de Ganador -->
+            <div id="top-prediction" class="top-prediction-box empty">
+              <span class="top-emoji">🐾</span>
+              <div class="top-details">
+                <span class="top-label">Esperando entrada...</span>
+                <span class="top-percentage">--%</span>
+              </div>
+            </div>
+
+            <!-- Barras de probabilidad para cada clase -->
+            <div class="predictions-list" id="predictions-list">
+              <!-- Se generará dinámicamente con app.js -->
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        URL del Modelo: 
+        <a href="https://teachablemachine.withgoogle.com/models/3DI5L_6Ec/" target="_blank" rel="noopener noreferrer">
+          teachablemachine.withgoogle.com/models/3DI5L_6Ec/
+        </a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Librerías de TensorFlow.js y Teachable Machine Image -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
